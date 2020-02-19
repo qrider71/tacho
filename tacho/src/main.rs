@@ -59,7 +59,7 @@ fn get_tacho_options(args: Vec<&str>) -> TachoOptions {
     match pos_tacho_tag {
         Some(n) => {
             tacho_options.tag = get_value_as_string(tacho_options_vec[n]).unwrap_or("".to_string())
-        }
+        },
         None => (),
     }
 
