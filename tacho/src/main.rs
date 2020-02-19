@@ -111,11 +111,12 @@ fn run_command(args:Vec<&str>) -> Result<(), String> {
 
     match output_result {
         Ok((duration, output)) => {
+            let msg = format!("[ Tacho: {} duration[{}ms] ]", tacho_options.tag, duration);
             if !tacho_options.quiet {
-                print!("[ Tacho: {} duration[{}ms] ]", tacho_options.tag, duration);
+                print!("{}",msg);
                 io::stdout().write_all(&output.stdout).unwrap();
             } else {
-                println!("[ Tacho: {} duration[{}ms] ]", tacho_options.tag, duration);
+                println!("{}",msg);
             }
             return Ok(());
         },
