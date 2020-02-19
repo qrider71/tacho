@@ -52,21 +52,22 @@ fn get_tacho_options(args: Vec<&str>) -> TachoOptions {
         .filter(|s| s.starts_with("-tacho"))
         .collect();
 
-    let pos_tacho_repeat = tacho_options_vec
+    let pos_tacho_tag = tacho_options_vec
         .iter()
         .position(|x| x.starts_with("-tachoTag"));
 
-    match pos_tacho_repeat {
+    match pos_tacho_tag {
         Some(n) => {
             tacho_options.tag = get_value_as_string(tacho_options_vec[n]).unwrap_or("".to_string())
         }
         None => (),
     }
 
-    let pos_tacho_quiet = tacho_options_vec.iter().position(|x| x == &"-tachoQuiet");
-    if pos_tacho_quiet.is_some() {
-        tacho_options.quiet = true;
-    }
+    tacho_options.quiet = tacho_options_vec
+        .iter()
+        .position(|x| x == &"-tachoQuiet")
+        .map(|_n| true)
+        .unwrap_or(false);
 
     let pos_tacho_repeat = tacho_options_vec
         .iter()
