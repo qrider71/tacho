@@ -2,8 +2,8 @@ use std::env;
 use std::io::{self, Write};
 use std::str;
 
-mod process;
 mod help;
+mod process;
 
 static DEFAULT_TACHO_FILE: &str = "tacho.yml";
 
@@ -71,8 +71,8 @@ fn get_tacho_options(args: Vec<&str>) -> TachoOptions {
     let pos_tacho_repeat = tacho_options_vec
         .iter()
         .position(|x| x.starts_with("-tachoRepeat"));
-    
-        match pos_tacho_repeat {
+
+    match pos_tacho_repeat {
         Some(n) => tacho_options.repeat = get_value_as_int(tacho_options_vec[n]).unwrap_or(1),
         None => (),
     }
