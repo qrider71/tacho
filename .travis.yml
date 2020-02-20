@@ -23,4 +23,4 @@ deploy:
     file:
       - target/release/tacho-*
     api_key:
-      secure: # ;)
+      secure: 1e2448c8eaed008079f0cc5f5f6c9d24e11a946d 
