@@ -10,7 +10,7 @@ matrix:
 os:
 - linux
 - osx
-- windows
+
 before_deploy:
   - mv target/release/tacho "target/release/tacho-$TRAVIS_TAG-$TRAVIS_OS_NAME"
 deploy:
