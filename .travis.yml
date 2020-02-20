@@ -16,7 +16,7 @@ os:
 - osx
 
 before_deploy:
-  - mv target/release/tacho "target/release/tacho-$TRAVIS_TAG-$TRAVIS_OS_NAME"
+  - mv /home/travis/build/qrider71/tacho/target/release/tacho "/home/travis/build/qrider71/tacho/target/release/tacho-$TRAVIS_TAG-$TRAVIS_OS_NAME"
 deploy:
   - provider: releases
     skip_cleanup: true
