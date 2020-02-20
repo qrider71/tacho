@@ -14,14 +14,6 @@ os:
 before_deploy:
   - mv target/release/tacho "target/release/tacho-$TRAVIS_TAG-$TRAVIS_OS_NAME"
 deploy:
-  - provider: cargo
-    skip_cleanup: true
-    on:
-      tags: true
-      condition: "$TRAVIS_RUST_VERSION = stable && $TRAVIS_OS_NAME = linux"
-      branch: master
-    token:
-      secure: # ;)
   - provider: releases
     skip_cleanup: true
     on:
