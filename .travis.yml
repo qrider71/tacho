@@ -16,8 +16,8 @@ os:
 - osx
 
 before_deploy:
-  - mv /home/travis/build/qrider71/tacho/target/release/tacho /home/travis/build/qrider71/tacho/target/release/tacho-$TRAVIS_TAG-$TRAVIS_OS_NAME
-  - ls /home/travis/build/qrider71/tacho/target/release/
+  - mv target/release/tacho target/release/tacho-$TRAVIS_TAG-$TRAVIS_OS_NAME
+  - ls target/release/
 deploy:
   - provider: releases
     skip_cleanup: true
@@ -26,5 +26,5 @@ deploy:
       condition: "$TRAVIS_RUST_VERSION = stable"
       branch: master
     file:
-      - /home/travis/build/qrider71/tacho/target/release/tacho-$TRAVIS_TAG-$TRAVIS_OS_NAME
+      - target/release/tacho-$TRAVIS_TAG-$TRAVIS_OS_NAME
     api_key: $SecToken
