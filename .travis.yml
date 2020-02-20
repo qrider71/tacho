@@ -26,5 +26,5 @@ deploy:
       condition: "$TRAVIS_RUST_VERSION = stable"
       branch: master
     file:
-      - /home/travis/build/qrider71/tacho/target/release/tacho-*
+      - /home/travis/build/qrider71/tacho/target/release/tacho-$TRAVIS_TAG-$TRAVIS_OS_NAME
     api_key: $SecToken
