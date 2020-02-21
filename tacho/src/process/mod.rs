@@ -2,6 +2,7 @@ use std::process::Command;
 use std::time::Instant;
 
 mod options;
+mod stats;
 
 use options::TachoOptions;
 
@@ -80,17 +81,16 @@ fn process_result_list(results: Vec<TachoResult>, tacho_options: &TachoOptions) 
         }
     }
 
-    let durations:Vec<u128> = results.iter().map(|x| x.duration).collect();
-    let min = durations.iter().min().unwrap_or(&0);
-    let max = durations.iter().max().unwrap_or(&0);
-    let n = &results.len();
-    let nn = *n as f64;
-    let sum:u128 = durations.iter().sum();
-    let avg = sum as f64 / nn;
-    let diff_sqt:f64 = durations.iter().map(|x| *x as f64 - avg).map(|x| x*x).sum();
-    let variance = diff_sqt / (nn - 1.0); // Bessel correction in variance
-    let stddev = variance.sqrt();
-     
-    println!("Tacho {}: avg: {:.2}ms / min: {}ms / max: {}ms / stddev {:.2}ms", tacho_options.tag, avg, min, max, stddev);
+    let durations = results.iter().map(|x| x.duration).collect();
+    let stats::Stats {
+        avg,
+        min,
+        max,
+        stddev,
+    } = stats::calculate_stats(&durations);
 
+    println!(
+        "Tacho {}: avg: {:.2}ms / min: {}ms / max: {}ms / stddev {:.2}ms",
+        tacho_options.tag, avg, min, max, stddev
+    );
 }
