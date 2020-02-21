@@ -7,7 +7,7 @@ Tacho is a small application for measuring performance of an executable
 
 Tacho executes a command and measures the elapsed time in milliseconds.
 
-Usage:
+## Usage
         
         tacho [-tachoOptions] <command> [-params]
 
@@ -16,7 +16,7 @@ Usage:
          -tachoShowOutput       displays the output of the executed command
          -tachTag=<tag>         adds an informational tag to the output 
 
-Example: 
+## Example 
 
          tacho -tachoTag=MyTest -tachoRepeat=5 curl https://www.google.com 
          tacho -tachoShowOutput ls -l
