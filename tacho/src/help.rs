@@ -1,20 +1,23 @@
 pub fn display_help() -> Result<(), String> {
     let help = "
-        Tacho V1.0 (c)2020 by Markus Reith
+        Tacho (c)2020 by Markus Reith
 
         Tacho executes a command and measures the elapsed time in milliseconds.
-        Tacho can be used either in (1) command line mode or in (2) config file mode.
 
         Usage:
-        (1) tacho [-tachoOptions] <command> [-params]
-        (2) tacho -tachoFile <filename.yml>
+        tacho [-tachoOptions] <command> [-params]
 
-        1) Command line mode
-        Tacho executes <command> and passes the optional parameters [-params] to the command.
+        Available options:
+         -tachoRepeat=<n>       repeats the execution n times and calculates statistics
+         -tachoShowOutput       displays the output of the executed command
+         -tachTag=<tag>         adds an informational tag to the output 
 
-        2) Config file mode
-        The config files specifies an execution plan for sophisticated performance measurement
+        Example: 
+         tacho -tachoTag=MyTest -tachoRepeat=5 curl https://www.google.com 
+         tacho -tachoShowOutput ls -l
 
+        Further information: https://github.com/qrider71/tacho
+        
     ";
     println!("{}", help);
     return Ok(());
