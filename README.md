@@ -8,6 +8,7 @@ Tacho is a small application for measuring performance of an executable
 Tacho executes a command and measures the elapsed time in milliseconds.
 
 Usage:
+        
         tacho [-tachoOptions] <command> [-params]
 
         Available options:
