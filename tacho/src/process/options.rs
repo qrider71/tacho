@@ -1,6 +1,6 @@
 pub struct TachoOptions {
     pub tag: String,
-    pub quiet: bool,
+    pub show_output: bool,
     pub repeat: i32,
 }
 
@@ -26,7 +26,7 @@ fn get_value_as_int(x: &str) -> Option<i32> {
     };
 }
 
-fn find_in_args(args: &Vec<&str>, start_key:&str) -> Option<usize> {
+fn find_in_args(args: &Vec<&str>, start_key: &str) -> Option<usize> {
     return args.iter().position(|x| x.starts_with(start_key));
 }
 
@@ -36,13 +36,13 @@ fn get_tacho_options(args: &Vec<&str>) -> TachoOptions {
             .and_then(|n| get_value_as_string(args[n]))
             .unwrap_or("".to_string()),
 
-        quiet: find_in_args(&args,"-tachoQuiet")
-            .map(|_n| true)
-            .unwrap_or(false),
-
-        repeat: find_in_args(&args,"-tachoRepeat")
+        repeat: find_in_args(&args, "-tachoRepeat")
             .and_then(|n| get_value_as_int(args[n]))
             .unwrap_or(1),
+
+        show_output: find_in_args(&args, "-tachoShowOutput")
+            .map(|_n| true)
+            .unwrap_or(false),
     };
 }
 
@@ -53,7 +53,7 @@ fn get_non_tacho_options(args: Vec<&str>) -> Vec<&str> {
         .collect();
 }
 
-pub fn get_command_line(args: Vec<&str>) -> Result<(&str, Vec<&str>, TachoOptions),String> {
+pub fn get_command_line(args: Vec<&str>) -> Result<(&str, Vec<&str>, TachoOptions), String> {
     let tacho_options = get_tacho_options(&args);
     let cmd_with_params = get_non_tacho_options(args);
 
@@ -66,5 +66,3 @@ pub fn get_command_line(args: Vec<&str>) -> Result<(&str, Vec<&str>, TachoOption
 
     return Ok((cmd, params, tacho_options));
 }
-
-
