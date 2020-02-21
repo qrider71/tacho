@@ -84,8 +84,13 @@ fn process_result_list(results: Vec<TachoResult>, tacho_options: &TachoOptions) 
     let min = durations.iter().min().unwrap_or(&0);
     let max = durations.iter().max().unwrap_or(&0);
     let n = &results.len();
+    let nn = *n as f64;
     let sum:u128 = durations.iter().sum();
-    let avg = sum as f64 / *n as f64;
-    println!("avg: {}ms / min: {}ms / max: {}ms", avg, min, max);
+    let avg = sum as f64 / nn;
+    let diff_sqt:f64 = durations.iter().map(|x| *x as f64 - avg).map(|x| x*x).sum();
+    let variance = diff_sqt / (nn - 1.0); // Bessel correction in variance
+    let stddev = variance.sqrt();
+     
+    println!("avg: {:.2}ms / min: {}ms / max: {}ms / stddev {:.2}ms", avg, min, max, stddev);
 
 }
