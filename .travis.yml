@@ -19,6 +19,8 @@ os:
 # rename before deployment
 before_deploy:
   - mv target/release/tacho target/release/tacho-$TRAVIS_TAG-$TRAVIS_OS_NAME
+    on:
+      os: linux
     
 deploy:
   - provider: releases
