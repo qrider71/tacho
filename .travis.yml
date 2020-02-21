@@ -19,17 +19,7 @@ os:
 # rename before deployment
 before_deploy:
   - mv target/release/tacho target/release/tacho-$TRAVIS_TAG-$TRAVIS_OS_NAME
-    on:
-      os: linux
-
-  - mv target/release/tacho target/release/tacho-$TRAVIS_TAG-$TRAVIS_OS_NAME
-    on:
-      os: osx
-
-  - rename target/release/tacho.exe target/release/tacho-$TRAVIS_TAG-$TRAVIS_OS_NAME.exe
-    on:
-      os: windows
-
+    
 deploy:
   - provider: releases
     skip_cleanup: true
