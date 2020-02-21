@@ -9,7 +9,7 @@ Tacho executes a command and measures the elapsed time in milliseconds.
 
 ## Usage
         
-        tacho [-tachoOptions] <command> [-params]
+        tacho [-tachoOptions] <command> [params]
 
         Available options:
          -tachoRepeat=<n>       repeats the execution n times and calculates statistics
