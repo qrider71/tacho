@@ -91,6 +91,6 @@ fn process_result_list(results: Vec<TachoResult>, tacho_options: &TachoOptions) 
     let variance = diff_sqt / (nn - 1.0); // Bessel correction in variance
     let stddev = variance.sqrt();
      
-    println!("avg: {:.2}ms / min: {}ms / max: {}ms / stddev {:.2}ms", avg, min, max, stddev);
+    println!("Tacho {}: avg: {:.2}ms / min: {}ms / max: {}ms / stddev {:.2}ms", tacho_options.tag, avg, min, max, stddev);
 
 }
