@@ -20,7 +20,6 @@ pub fn run_processes(
     args: Vec<&str>,
     tacho_options: &TachoOptions,
 ) -> Result<Vec<TachoResult>, std::io::Error> {
-
     let mut results: Vec<TachoResult> = Vec::new();
 
     for _i in 0..tacho_options.repeat {
@@ -58,7 +57,7 @@ fn process_results(results: Vec<TachoResult>, tacho_options: &TachoOptions) -> R
     match results.as_slice() {
         [] => (),
         [result] => process_single_result(result, tacho_options),
-        _ => process_result_list(results, tacho_options)
+        _ => process_result_list(results, tacho_options),
     }
     return Ok(());
 }
@@ -75,7 +74,18 @@ fn process_single_result(result: &TachoResult, tacho_options: &TachoOptions) {
 }
 
 fn process_result_list(results: Vec<TachoResult>, tacho_options: &TachoOptions) {
-    for res in results {
-        process_single_result(&res, tacho_options);
+    if tacho_options.show_output {
+        for res in &results {
+            process_single_result(&res, tacho_options);
+        }
     }
+
+    let durations:Vec<u128> = results.iter().map(|x| x.duration).collect();
+    let min = durations.iter().min().unwrap_or(&0);
+    let max = durations.iter().max().unwrap_or(&0);
+    let n = &results.len();
+    let sum:u128 = durations.iter().sum();
+    let avg = sum as f64 / *n as f64;
+    println!("avg: {}ms / min: {}ms / max: {}ms", avg, min, max);
+
 }
