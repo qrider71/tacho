@@ -4,6 +4,16 @@ rust:
 - beta
 - nightly
 matrix:
+  - os: linux
+    before_deploy:
+      - mv target/release/tacho target/release/tacho-$TRAVIS_TAG-$TRAVIS_OS_NAME
+  - os: osx
+    before_deploy:
+      - mv target/release/tacho target/release/tacho-$TRAVIS_TAG-$TRAVIS_OS_NAME
+  - os: windows
+    before_deploy:
+      - rename target/release/tacho.exe target/release/tacho-$TRAVIS_TAG-$TRAVIS_OS_NAME.exe
+
   allow_failures:
   - rust: nightly
   fast_finish: true
@@ -17,10 +27,8 @@ os:
 - windows
 
 # rename before deployment
-before_deploy:
-  - mv target/release/tacho target/release/tacho-$TRAVIS_TAG-$TRAVIS_OS_NAME
-    on:
-      os: linux
+# before_deploy:
+#  - mv target/release/tacho target/release/tacho-$TRAVIS_TAG-$TRAVIS_OS_NAME
     
 deploy:
   - provider: releases
