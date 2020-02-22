@@ -19,8 +19,8 @@ os:
 # rename before deployment
 before_deploy:
   - if [ "$TRAVIS_OS_NAME" == "linux" ]; then mv target/release/tacho target/release/tacho-$TRAVIS_TAG-$TRAVIS_OS_NAME; fi
-  - if [ "$TRAVIS_OS_NAME" == "osx" ]; mv target/release/tacho target/release/tacho-$TRAVIS_TAG-$TRAVIS_OS_NAME; fi
-  - if [ "$TRAVIS_OS_NAME" == "windows" ]; rename target/release/tacho.exe target/release/tacho-$TRAVIS_TAG-$TRAVIS_OS_NAME.exe; fi
+  - if [ "$TRAVIS_OS_NAME" == "osx" ]; then mv target/release/tacho target/release/tacho-$TRAVIS_TAG-$TRAVIS_OS_NAME; fi
+  - if [ "$TRAVIS_OS_NAME" == "windows" ]; then rename target/release/tacho.exe target/release/tacho-$TRAVIS_TAG-$TRAVIS_OS_NAME.exe; fi
     
 deploy:
   - provider: releases
