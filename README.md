@@ -15,7 +15,7 @@ Tacho executes a command and measures the elapsed time in milliseconds.
          -tachoShowDetail       together  with -tachoRepeat: show each individual duration
          -tachoShowOutput       displays the output of the executed command
          -tachoASCII            together with -tachoShowOutput: filter out non ASCII characters in output
-         -tachoTag=<tag>         adds an informational tag to the output 
+         -tachoTag=<tag>        adds an informational tag to the output 
 
 ## Example
 
