@@ -3,6 +3,7 @@ pub struct TachoOptions {
     pub show_output: bool,
     pub filter_ascii: bool,
     pub repeat: i32,
+    pub show_details:bool
 }
 
 fn get_value_as_string(x: &str) -> Option<String> {
@@ -40,6 +41,10 @@ fn get_tacho_options(args: &Vec<&str>) -> TachoOptions {
         repeat: find_in_args(&args, "-tachoRepeat")
             .and_then(|n| get_value_as_int(args[n]))
             .unwrap_or(1),
+
+        show_details: find_in_args(&args, "-tachoShowDetails")
+            .map(|_n| true)
+            .unwrap_or(false),
 
         show_output: find_in_args(&args, "-tachoShowOutput")
             .map(|_n| true)

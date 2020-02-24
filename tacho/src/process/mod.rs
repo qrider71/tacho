@@ -90,6 +90,13 @@ fn process_result_list(results: Vec<TachoResult>, tacho_options: &TachoOptions) 
         }
     }
 
+    if tacho_options.show_details {
+        println!("Tacho {}: duration in ms", tacho_options.tag);
+        for res in &results {
+            println!("{}", res.duration);
+        }
+    }
+
     let durations = results.iter().map(|x| x.duration).collect();
     let stats::Stats {
         avg,
