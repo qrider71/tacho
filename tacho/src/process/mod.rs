@@ -32,7 +32,12 @@ pub fn run_processes(
             Ok(out) => results.push(TachoResult {
                 duration: duration,
                 output: if tacho_options.show_output {
-                    TachoOutput::FullOutput(String::from_utf8(out.stdout).unwrap())
+                    if tacho_options.filter_ascii {
+                        let v = out.stdout.into_iter().filter(|b| b < &128u8).collect();
+                        TachoOutput::FullOutput(String::from_utf8(v).unwrap())
+                    } else {
+                        TachoOutput::FullOutput(String::from_utf8(out.stdout).unwrap())
+                    }
                 } else {
                     TachoOutput::NoOutput
                 },

@@ -1,6 +1,7 @@
 pub struct TachoOptions {
     pub tag: String,
     pub show_output: bool,
+    pub filter_ascii: bool,
     pub repeat: i32,
 }
 
@@ -41,6 +42,10 @@ fn get_tacho_options(args: &Vec<&str>) -> TachoOptions {
             .unwrap_or(1),
 
         show_output: find_in_args(&args, "-tachoShowOutput")
+            .map(|_n| true)
+            .unwrap_or(false),
+
+        filter_ascii: find_in_args(&args, "-tachoASCII")
             .map(|_n| true)
             .unwrap_or(false),
     };
