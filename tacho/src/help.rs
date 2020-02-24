@@ -10,6 +10,7 @@ pub fn display_help() -> Result<(), String> {
         Available options:
          -tachoRepeat=<n>       repeats the execution n times and calculates statistics
          -tachoShowOutput       displays the output of the executed command
+         -tachoASCII            together with -tachoShowOutput: filter out non ASCII characters in output
          -tachTag=<tag>         adds an informational tag to the output 
 
         Example: 

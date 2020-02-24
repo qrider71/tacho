@@ -36,7 +36,11 @@ pub fn run_processes(
                         let v = out.stdout.into_iter().filter(|b| b < &128u8).collect();
                         TachoOutput::FullOutput(String::from_utf8(v).unwrap())
                     } else {
-                        TachoOutput::FullOutput(String::from_utf8(out.stdout).unwrap())
+                        let resx = String::from_utf8(out.stdout);
+                        match resx {
+                            Ok(s) => TachoOutput::FullOutput(s),
+                            Err(_e) => TachoOutput::FullOutput(String::from("UTF-8 failure: Use option -tachoASCII to filter out non-ASCII characters"))
+                        }
                     }
                 } else {
                     TachoOutput::NoOutput
