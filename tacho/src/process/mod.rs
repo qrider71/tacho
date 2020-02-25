@@ -104,10 +104,11 @@ fn process_result_list(results: Vec<TachoResult>, tacho_options: &TachoOptions) 
         min,
         max,
         stddev,
+        n_recommended
     } = stats::calculate_stats(&durations);
 
     println!(
-        "Tacho {}: avg: {:.2}ms / 95% conf. interval {:.2} / min: {}ms / max: {}ms / stddev {:.2}ms",
-        tacho_options.tag, avg, conf_interval_95, min, max, stddev
+        "Tacho {}: avg: {:.2}ms / 95% conf. interval {:.2} / min: {}ms / max: {}ms / stddev {:.2} ms / n_recommended {:.0}",
+        tacho_options.tag, avg, conf_interval_95, min, max, stddev, n_recommended
     );
 }
