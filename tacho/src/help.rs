@@ -1,11 +1,11 @@
 pub fn display_help() -> Result<(), String> {
     let help = "
-        Tacho V 0.2.1 (c)2020 by Markus Reith
+        PerfTacho V 0.2.1 (c)2020 by Markus Reith
 
-        Tacho executes a command and measures the elapsed time in milliseconds.
+        PerfTacho executes a command and measures the elapsed time in milliseconds.
 
         Usage:
-        tacho [-tachoOptions] <command> [params]
+        perftacho [-tachoOptions] <command> [params]
 
         Available options:
          -tachoRepeat=<n>       repeats the execution n times and calculates statistics
@@ -15,8 +15,8 @@ pub fn display_help() -> Result<(), String> {
          -tachoTag=<tag>        adds an informational tag to the output 
 
         Example: 
-         tacho -tachoTag=MyTest -tachoRepeat=5 -tachoShowDetail curl https://www.google.com 
-         tacho -tachoShowOutput ls -l
+            perftacho -tachoTag=MyTest -tachoRepeat=5 -tachoShowDetail curl https://www.google.com 
+            perftacho -tachoShowOutput ls -l
 
         Further information: https://github.com/qrider71/tacho
         
