@@ -4,10 +4,10 @@ pub struct Stats {
     pub max: u128,
     pub stddev: f64,
     pub conf_interval_95: f64,
-    pub n_recommended: f64
+    pub n_recommended: f64,
 }
 
-pub fn calculate_stats(durations: &Vec<u128>) -> Stats {
+pub fn calculate_stats(durations: &[u128]) -> Stats {
     let n = &durations.len();
     let nn = *n as f64;
     let min = durations.iter().min().unwrap_or(&0);
@@ -29,14 +29,14 @@ pub fn calculate_stats(durations: &Vec<u128>) -> Stats {
     // Calculate n for 95% confidence interval < 0.05 avg
 
     let avg5 = 0.05 * avg;
-    let n_recommended = (z95/avg5) * (z95/avg5) * variance;
+    let n_recommended = (z95 / avg5) * (z95 / avg5) * variance;
 
-    return Stats {
-        avg: avg,
+    Stats {
+        avg,
         min: *min,
         max: *max,
-        stddev: stddev,
-        conf_interval_95: conf_interval_95,
-        n_recommended
-    };
+        stddev,
+        conf_interval_95,
+        n_recommended,
+    }
 }

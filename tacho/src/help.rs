@@ -22,5 +22,5 @@ pub fn display_help() -> Result<(), String> {
         
     ";
     println!("{}", help);
-    return Ok(());
+    Ok(())
 }

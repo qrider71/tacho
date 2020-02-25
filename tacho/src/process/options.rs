@@ -3,40 +3,40 @@ pub struct TachoOptions {
     pub show_output: bool,
     pub filter_ascii: bool,
     pub repeat: i32,
-    pub show_details:bool
+    pub show_details: bool,
 }
 
 fn get_value_as_string(x: &str) -> Option<String> {
-    let tokens: Vec<_> = x.split("=").filter(|k| !k.is_empty()).collect();
-    return match tokens.as_slice() {
-        [_key, value] => Some(value.to_string()),
+    let tokens: Vec<_> = x.split('=').filter(|k| !k.is_empty()).collect();
+    match tokens.as_slice() {
+        [_key, value] => Some((*value).to_string()),
         _ => None,
-    };
+    }
 }
 
 fn get_value_as_int(x: &str) -> Option<i32> {
-    let tokens: Vec<_> = x.split("=").filter(|k| !k.is_empty()).collect();
-    return match tokens.as_slice() {
+    let tokens: Vec<_> = x.split('=').filter(|k| !k.is_empty()).collect();
+    match tokens.as_slice() {
         [_key, value] => {
             let i = value.parse::<i32>();
-            return match i {
+            match i {
                 Ok(v) => Some(v),
                 _ => None,
-            };
+            }
         }
         _ => None,
-    };
+    }
 }
 
-fn find_in_args(args: &Vec<&str>, start_key: &str) -> Option<usize> {
-    return args.iter().position(|x| x.starts_with(start_key));
+fn find_in_args(args: &[&str], start_key: &str) -> Option<usize> {
+    args.iter().position(|x| x.starts_with(start_key))
 }
 
-fn get_tacho_options(args: &Vec<&str>) -> TachoOptions {
-    return TachoOptions {
+fn get_tacho_options(args: &[&str]) -> TachoOptions {
+    TachoOptions {
         tag: find_in_args(&args, "-tachoTag")
             .and_then(|n| get_value_as_string(args[n]))
-            .unwrap_or("".to_string()),
+            .unwrap_or_else(|| "".to_string()),
 
         repeat: find_in_args(&args, "-tachoRepeat")
             .and_then(|n| get_value_as_int(args[n]))
@@ -53,26 +53,25 @@ fn get_tacho_options(args: &Vec<&str>) -> TachoOptions {
         filter_ascii: find_in_args(&args, "-tachoASCII")
             .map(|_n| true)
             .unwrap_or(false),
-    };
+    }
 }
 
 fn get_non_tacho_options(args: Vec<&str>) -> Vec<&str> {
-    return args
-        .into_iter()
+    args.into_iter()
         .filter(|s| !s.starts_with("-tacho"))
-        .collect();
+        .collect()
 }
 
 pub fn get_command_line(args: Vec<&str>) -> Result<(&str, Vec<&str>, TachoOptions), String> {
     let tacho_options = get_tacho_options(&args);
     let cmd_with_params = get_non_tacho_options(args);
 
-    if cmd_with_params.len() == 0 {
+    if cmd_with_params.is_empty() {
         return Err(String::from("Missing command"));
     }
 
     let cmd = cmd_with_params[0];
     let params: Vec<&str> = cmd_with_params.into_iter().skip(1).collect();
 
-    return Ok((cmd, params, tacho_options));
+    Ok((cmd, params, tacho_options))
 }

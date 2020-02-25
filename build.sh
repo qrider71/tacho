@@ -1,5 +1,9 @@
 #!/bin/bash
 
+echo Running clippy ...
+cargo clippy
+echo Running formatter ...
+cargo fmt
 echo Building Rust ...
 cargo clean
 cargo build --release

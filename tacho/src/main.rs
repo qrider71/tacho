@@ -8,7 +8,7 @@ static DEFAULT_TACHO_FILE: &str = "tacho.yml";
 
 fn process_tacho_file(file: &str) -> Result<(), String> {
     println!("Processing tacho file '{}'", file);
-    return Ok(());
+    Ok(())
 }
 
 fn main() {
@@ -22,8 +22,7 @@ fn main() {
         _ => process::run_command(args_str),
     };
 
-    match res {
-        Err(message) => println!("Error, Tacho failed: {} !", message),
-        _ => return,
-    };
+    if let Err(message) = res {
+        println!("Error, Tacho failed: {} !", message)
+    }
 }
