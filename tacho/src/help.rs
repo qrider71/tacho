@@ -1,6 +1,6 @@
 pub fn display_help() -> Result<(), String> {
     let help = "
-        Tacho V 0.1.0 (c)2020 by Markus Reith
+        Tacho V 0.2.1 (c)2020 by Markus Reith
 
         Tacho executes a command and measures the elapsed time in milliseconds.
 
