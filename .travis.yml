@@ -29,5 +29,5 @@ deploy:
       branch: master
     file_glob: true
     file:
-      - target/release/tacho-*
+      - target/release/perftacho-*
     api_key: $SecToken

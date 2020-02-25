@@ -1,6 +1,6 @@
 pub fn display_help() -> Result<(), String> {
     let help = "
-        PerfTacho V 0.3.0 (c)2020 by Markus Reith
+        PerfTacho V 0.3.1 (c)2020 by Markus Reith
 
         PerfTacho executes a command and measures the elapsed time in milliseconds.
 

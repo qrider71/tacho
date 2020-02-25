@@ -3,7 +3,7 @@ if ARGV.length != 2
     exit
 end
 
-file = "target/release/tacho"
+file = "target/release/perftacho"
 os=ARGV[0]
 tag=ARGV[1]
 
