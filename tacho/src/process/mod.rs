@@ -100,13 +100,14 @@ fn process_result_list(results: Vec<TachoResult>, tacho_options: &TachoOptions) 
     let durations = results.iter().map(|x| x.duration).collect();
     let stats::Stats {
         avg,
+        conf_interval_95,
         min,
         max,
         stddev,
     } = stats::calculate_stats(&durations);
 
     println!(
-        "Tacho {}: avg: {:.2}ms / min: {}ms / max: {}ms / stddev {:.2}ms",
-        tacho_options.tag, avg, min, max, stddev
+        "Tacho {}: avg: {:.2}ms / 95% conf. interval {:.2} / min: {}ms / max: {}ms / stddev {:.2}ms",
+        tacho_options.tag, avg, conf_interval_95, min, max, stddev
     );
 }
