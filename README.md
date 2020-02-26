@@ -6,7 +6,7 @@ PerfTacho is a small application for measuring performance of an executable
 
 PerfTacho executes a command and measures the elapsed time in milliseconds.
 
-## Usage
+# Usage
 
         perftacho [-tachoOptions] <command> [params]
 
