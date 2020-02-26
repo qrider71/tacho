@@ -57,7 +57,7 @@ Cargo installs the compiled binary into your bin folder
 You can install from sources as described above or download the binary from Github:
 https://github.com/qrider71/tacho/releases
 
-You should pick the file perftacho-osx-x.y.z
+You should pick the file perftacho-windows-x.y.z
 
 Alternatively, you can install with homebrew (https://brew.sh/)
 
