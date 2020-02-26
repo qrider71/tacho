@@ -61,6 +61,7 @@ You should pick the file perftacho-osx-x.y.z and copy it to your bin folder (whi
 
 Alternatively, you can install with homebrew (https://brew.sh/)
 
+        brew tab qrider71/perftacho
         brew install perftacho
 
 ## Linux
