@@ -78,3 +78,22 @@ https://github.com/qrider71/tacho/releases
 
 You should pick the file perftacho-windows-x.y.z.exe and copy it to your bin folder (which should be in your PATH)
 
+# Roadmap
+I plan the following roadmap. Please contact me if you have any comments or ideas for useful features:
+
+## V.1.0
+Version 1.0 provides all command line tool features for measurung the performance of a single executable
+- Simple measurement of the runtime duration (implemented)
+- Statistical analysis of multiple runs (implemented)
+- Grabbing perfromance data from the output of the executable with regulare expressions
+
+## V.2.0
+Version 2.0 provides features for comparing the performance of several execurtables. It can be used for benchmarking
+different implementation. The execution plans can be specifyed in a configuration file.
+- Configuration file (yaml) based performance testing plans for several executables
+- Exporting the results in different formats
+
+## V.3.0
+Version 3.0 provides multi-threading options for running the perfromance tests. The focus is on measuring
+the performance under multi-threaded access and stress test conditions
+- multi-threading options for running the performance tests
