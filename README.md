@@ -85,7 +85,7 @@ I plan the following roadmap. Please contact me if you have any comments or idea
 Version 1.0 provides all command line tool features for measurung the performance of a single executable
 - Simple measurement of the runtime duration (implemented)
 - Statistical analysis of multiple runs (implemented)
-- Grabbing perfromance data from the output of the executable with regulare expressions
+- Grabbing perfromance data from the output of the executable with regular expressions
 
 ## V.2.0
 Version 2.0 provides features for comparing the performance of several execurtables. It can be used for benchmarking
