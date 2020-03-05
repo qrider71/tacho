@@ -4,6 +4,7 @@ pub struct TachoOptions {
     pub filter_ascii: bool,
     pub repeat: i32,
     pub show_details: bool,
+    pub regex_opt: Option<String>,
 }
 
 fn get_value_as_string(x: &str) -> Option<String> {
@@ -53,6 +54,8 @@ fn get_tacho_options(args: &[&str]) -> TachoOptions {
         filter_ascii: find_in_args(&args, "-tachoASCII")
             .map(|_n| true)
             .unwrap_or(false),
+
+        regex_opt: find_in_args(&args, "-tachoRegEx").and_then(|n| get_value_as_string(args[n])),
     }
 }
 

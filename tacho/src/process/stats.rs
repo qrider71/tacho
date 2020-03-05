@@ -1,25 +1,43 @@
 pub struct Stats {
     pub avg: f64,
-    pub min: u128,
-    pub max: u128,
+    pub min: f64,
+    pub max: f64,
     pub stddev: f64,
     pub conf_interval_95: f64,
     pub n_recommended: f64,
 }
 
-pub fn calculate_stats(durations: &[u128]) -> Stats {
-    let n = &durations.len();
-    let nn = *n as f64;
-    let min = durations.iter().min().unwrap_or(&0);
-    let max = durations.iter().max().unwrap_or(&0);
+pub fn min_max(values: &[f64]) -> Option<(f64, f64)> {
+    fn min_max_rec(values: &[f64], min: f64, max: f64) -> Option<(f64, f64)> {
+        match values {
+            [] => Some((min, max)),
+            _ => {
+                let min_new = if values[0] < min { values[0] } else { min };
+                let max_new = if values[0] > max { values[0] } else { max };
+                min_max_rec(&values[1..], min_new, max_new)
+            }
+        }
+    }
 
-    let sum: u128 = durations.iter().sum();
+    match values {
+        [] => None,
+        [v] => Some((*v, *v)),
+        _ => min_max_rec(
+            &values[1..],
+            *values.first().unwrap(),
+            *values.first().unwrap(),
+        ),
+    }
+}
+
+pub fn calculate_stats(values: &[f64]) -> Stats {
+    let n = &values.len();
+    let nn = *n as f64;
+    let (min, max) = min_max(values).unwrap_or((0.0, 0.0));
+
+    let sum: f64 = values.iter().sum();
     let avg = sum as f64 / nn;
-    let diff_sqt: f64 = durations
-        .iter()
-        .map(|x| *x as f64 - avg)
-        .map(|x| x * x)
-        .sum();
+    let diff_sqt: f64 = values.iter().map(|x| *x - avg).map(|x| x * x).sum();
     let variance = diff_sqt / (nn - 1.0); // Bessel correction in variance
     let stddev = variance.sqrt();
     let conf_interval = stddev / nn.sqrt();
@@ -33,8 +51,8 @@ pub fn calculate_stats(durations: &[u128]) -> Stats {
 
     Stats {
         avg,
-        min: *min,
-        max: *max,
+        min,
+        max,
         stddev,
         conf_interval_95,
         n_recommended,

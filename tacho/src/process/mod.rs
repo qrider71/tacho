@@ -1,4 +1,4 @@
-use std::process::Command;
+use std::process::{Command, Output};
 use std::time::Instant;
 
 mod options;
@@ -12,42 +12,52 @@ pub enum TachoOutput {
 }
 
 pub struct TachoResult {
-    duration: u128,
+    duration: f64,
     output: TachoOutput,
 }
 
-pub fn run_process(
+fn to_ascii_string(v: Vec<u8>) -> String {
+    let v_ascii = v.into_iter().filter(|&b| b < 128u8).collect();
+    String::from_utf8(v_ascii).unwrap()
+}
+
+fn create_tacho_result(out: Output, duration: f64, tacho_options: &TachoOptions) -> TachoResult {
+    TachoResult {
+        duration,
+        output: if tacho_options.show_output {
+            if tacho_options.filter_ascii {
+                TachoOutput::FullOutput(to_ascii_string(out.stdout))
+            } else {
+                let res = String::from_utf8(out.stdout);
+                match res {
+                    Ok(s) => TachoOutput::FullOutput(s),
+                    Err(_e) => TachoOutput::FullOutput(String::from(
+                        "UTF-8 failure: Use option -tachoASCII to filter out non-ASCII characters",
+                    )),
+                }
+            }
+        } else {
+            TachoOutput::NoOutput
+        },
+    }
+}
+
+fn run_process(
     cmd_name: &str,
     args: &[&str],
     tacho_options: &TachoOptions,
 ) -> Result<TachoResult, std::io::Error> {
     let start = Instant::now();
     let output = Command::new(cmd_name).args(args).output();
-    let duration = start.elapsed().as_millis();
+    let duration = start.elapsed().as_millis() as f64;
 
     match output {
-        Ok(out) => Ok(TachoResult {
-            duration,
-            output: if tacho_options.show_output {
-                if tacho_options.filter_ascii {
-                    let v = out.stdout.into_iter().filter(|b| b < &128u8).collect();
-                    TachoOutput::FullOutput(String::from_utf8(v).unwrap())
-                } else {
-                    let resx = String::from_utf8(out.stdout);
-                    match resx {
-                            Ok(s) => TachoOutput::FullOutput(s),
-                            Err(_e) => TachoOutput::FullOutput(String::from("UTF-8 failure: Use option -tachoASCII to filter out non-ASCII characters"))
-                        }
-                }
-            } else {
-                TachoOutput::NoOutput
-            },
-        }),
+        Ok(out) => Ok(create_tacho_result(out, duration, tacho_options)),
         Err(e) => Err(e),
     }
 }
 
-pub fn run_processes(
+fn run_processes(
     cmd_name: &str,
     args: &[&str],
     tacho_options: &TachoOptions,
@@ -105,11 +115,11 @@ fn process_result_list(results: Vec<TachoResult>, tacho_options: &TachoOptions) 
     if tacho_options.show_details {
         println!("Tacho {}: duration in ms", tacho_options.tag);
         for res in &results {
-            println!("{}", res.duration);
+            println!("{:.2}", res.duration);
         }
     }
 
-    let durations: Vec<u128> = results.iter().map(|x| x.duration).collect();
+    let durations: Vec<f64> = results.iter().map(|x| x.duration).collect();
     let stats::Stats {
         avg,
         conf_interval_95,
