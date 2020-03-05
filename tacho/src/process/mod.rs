@@ -17,29 +17,39 @@ pub struct TachoResult {
     output: TachoOutput,
 }
 
-fn to_ascii_string(v: Vec<u8>) -> String {
-    let v_ascii = v.into_iter().filter(|&b| b < 128u8).collect();
-    String::from_utf8(v_ascii).unwrap()
+fn to_ascii(v: Vec<u8>) -> Vec<u8> {
+    v.into_iter().filter(|&b| b < 128u8).collect()
 }
 
-fn create_tacho_result(out: Output, duration: f64, tacho_options: &TachoOptions) -> TachoResult {
-    TachoResult {
-        duration,
-        output: if tacho_options.show_output {
-            if tacho_options.filter_ascii {
-                TachoOutput::FullOutput(to_ascii_string(out.stdout))
-            } else {
-                let res = String::from_utf8(out.stdout);
-                match res {
-                    Ok(s) => TachoOutput::FullOutput(s),
-                    Err(_e) => TachoOutput::FullOutput(String::from(
-                        "UTF-8 failure: Use option -tachoASCII to filter out non-ASCII characters",
-                    )),
-                }
-            }
+fn create_tacho_result(
+    out: Output,
+    duration: f64,
+    tacho_options: &TachoOptions,
+) -> Result<TachoResult, String> {
+    if tacho_options.show_output || tacho_options.regex_opt.is_some() {
+        let v = if tacho_options.filter_ascii {
+            to_ascii(out.stdout)
         } else {
-            TachoOutput::NoOutput
-        },
+            out.stdout
+        };
+
+        let res = String::from_utf8(v);
+        match res {
+            Ok(s) => Ok(TachoResult {
+                duration,
+                output: if tacho_options.show_output {
+                    TachoOutput::FullOutput(s)
+                } else {
+                    TachoOutput::NoOutput
+                },
+            }),
+            Err(e) => Err(e.to_string()),
+        }
+    } else {
+        Ok(TachoResult {
+            duration,
+            output: TachoOutput::NoOutput,
+        })
     }
 }
 
@@ -53,7 +63,7 @@ fn run_process(
     let duration = start.elapsed().as_millis() as f64;
 
     match output {
-        Ok(out) => Ok(create_tacho_result(out, duration, tacho_options)),
+        Ok(out) => create_tacho_result(out, duration, tacho_options),
         Err(e) => Err(e.description().to_owned()),
     }
 }
