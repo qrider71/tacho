@@ -1,3 +1,4 @@
+use std::error::Error;
 use std::process::{Command, Output};
 use std::time::Instant;
 
@@ -46,14 +47,14 @@ fn run_process(
     cmd_name: &str,
     args: &[&str],
     tacho_options: &TachoOptions,
-) -> Result<TachoResult, std::io::Error> {
+) -> Result<TachoResult, String> {
     let start = Instant::now();
     let output = Command::new(cmd_name).args(args).output();
     let duration = start.elapsed().as_millis() as f64;
 
     match output {
         Ok(out) => Ok(create_tacho_result(out, duration, tacho_options)),
-        Err(e) => Err(e),
+        Err(e) => Err(e.description().to_owned()),
     }
 }
 
@@ -61,14 +62,14 @@ fn run_processes(
     cmd_name: &str,
     args: &[&str],
     tacho_options: &TachoOptions,
-) -> Result<Vec<TachoResult>, std::io::Error> {
+) -> Result<Vec<TachoResult>, String> {
     let mut results: Vec<TachoResult> = Vec::new();
 
     for _i in 0..tacho_options.repeat {
         let res = run_process(cmd_name, args, tacho_options);
         match res {
             Ok(tacho_result) => results.push(tacho_result),
-            Err(e) => return Err(e),
+            Err(msg) => return Err(msg),
         }
     }
     Ok(results)
@@ -79,7 +80,7 @@ pub fn run_command(args: Vec<&str>) -> Result<(), String> {
     match command_line {
         Ok((cmd, params, tacho_options)) => match run_processes(cmd, &params, &tacho_options) {
             Ok(results) => process_results(results, &tacho_options),
-            Err(e) => Err(e.to_string()),
+            Err(msg) => Err(msg),
         },
         Err(s) => Err(s),
     }
