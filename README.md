@@ -12,10 +12,11 @@ PerfTacho executes a command and measures the elapsed time in milliseconds.
 
         Available options:
          -tachoRepeat=<n>       repeats the execution n times and calculates statistics
-         -tachoShowDetails       together  with -tachoRepeat: show each individual duration
+         -tachoShowDetails      together  with -tachoRepeat: show each individual duration
          -tachoShowOutput       displays the output of the executed command
          -tachoASCII            together with -tachoShowOutput: filter out non ASCII characters in output
-         -tachoTag=<tag>        adds an informational tag to the output 
+         -tachoTag=<tag>        adds an informational tag to the output
+         -tachoRegEx[=<re>]     capture durations from output (see documentation below)
 
 ## Example
 

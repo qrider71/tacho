@@ -12,7 +12,8 @@ pub fn display_help() -> Result<(), String> {
          -tachoShowDetails      together  with -tachoRepeat: show each individual duration
          -tachoShowOutput       displays the output of the executed command
          -tachoASCII            together with -tachoShowOutput: filter out non ASCII characters in output
-         -tachoTag=<tag>        adds an informational tag to the output 
+         -tachoTag=<tag>        adds an informational tag to the output
+         -tachoRegEx[=<re>]     capture durations from output (see documentation)
 
         Example: 
             perftacho -tachoTag=MyTest -tachoRepeat=5 -tachoShowDetail curl https://www.google.com 
