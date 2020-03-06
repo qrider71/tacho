@@ -1,4 +1,4 @@
-static DEFAULT_REG_EX: &str = r"\[(\-?\d+\.?\d*)\s?(s|ms|ns)\]";
+static DEFAULT_REG_EX: &str = r"\[(\-?\d+[\.,]?\d*)\s?(s|ms|ns)\]";
 
 pub struct TachoOptions {
     pub tag: String,

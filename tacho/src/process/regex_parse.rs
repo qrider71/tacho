@@ -7,13 +7,15 @@ pub fn parse_durations(total_duration: f64, output: &str, regex_str: &str) -> Ve
                 let n = cap.len();
                 match n {
                     2 => {
-                        let d_res = cap[1].parse::<f64>();
+                        let c = cap[1].replace(",", ".");
+                        let d_res = c.parse::<f64>();
                         if let Ok(d) = d_res {
                             durations.push(d)
                         }
                     }
                     3 => {
-                        let d_res = cap[1].parse::<f64>();
+                        let c = cap[1].replace(",", ".");
+                        let d_res = c.parse::<f64>();
                         let u = &cap[2];
 
                         match (d_res, u) {
