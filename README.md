@@ -88,7 +88,7 @@ Version 1.0 provides all command line tool features for measurung the performanc
 
 - Simple measurement of the runtime duration (implemented)
 - Statistical analysis of multiple runs (implemented)
-- Grabbing perfromance data from the output of the executable with regular expressions
+- Grabbing perfromance data from the output of the executable with regular expressions (implemented)
 
 ## V.2.0
 
