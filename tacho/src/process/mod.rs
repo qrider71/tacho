@@ -3,6 +3,7 @@ use std::process::{Command, Output};
 use std::time::Instant;
 
 mod options;
+mod regex_parse;
 mod stats;
 
 use options::TachoOptions;
@@ -13,7 +14,7 @@ pub enum TachoOutput {
 }
 
 pub struct TachoResult {
-    duration: f64,
+    duration: Vec<f64>,
     output: TachoOutput,
 }
 
@@ -36,7 +37,11 @@ fn create_tacho_result(
         let res = String::from_utf8(v);
         match res {
             Ok(s) => Ok(TachoResult {
-                duration,
+                duration: tacho_options
+                    .regex_opt
+                    .as_ref()
+                    .map(|regex| regex_parse::parse_durations(duration, &s, &regex))
+                    .unwrap_or_else(|| vec![duration]),
                 output: if tacho_options.show_output {
                     TachoOutput::FullOutput(s)
                 } else {
@@ -47,7 +52,7 @@ fn create_tacho_result(
         }
     } else {
         Ok(TachoResult {
-            duration,
+            duration: vec![duration],
             output: TachoOutput::NoOutput,
         })
     }
@@ -112,7 +117,7 @@ fn process_single_result(result: &TachoResult, tacho_options: &TachoOptions) {
     }
     println!(
         "[ Tacho: {} duration[{}ms] ]",
-        tacho_options.tag, result.duration
+        tacho_options.tag, result.duration[0]
     );
 }
 
@@ -126,22 +131,29 @@ fn process_result_list(results: Vec<TachoResult>, tacho_options: &TachoOptions) 
     if tacho_options.show_details {
         println!("Tacho {}: duration in ms", tacho_options.tag);
         for res in &results {
-            println!("{:.2}", res.duration);
+            for d in &res.duration {
+                print!("{:.2} \t", d);
+            }
+            println!("");
         }
     }
 
-    let durations: Vec<f64> = results.iter().map(|x| x.duration).collect();
-    let stats::Stats {
-        avg,
-        conf_interval_95,
-        min,
-        max,
-        stddev,
-        n_recommended,
-    } = stats::calculate_stats(&durations);
+    let sizes: Vec<usize> = results.iter().map(|x| x.duration.len()).collect();
+    let min_size = sizes.iter().min().unwrap_or_else(|| &0);
+    for i in 0..*min_size {
+        let durations: Vec<f64> = results.iter().map(|x| x.duration[i]).collect();
+        let stats::Stats {
+            avg,
+            conf_interval_95,
+            min,
+            max,
+            stddev,
+            n_recommended,
+        } = stats::calculate_stats(&durations);
 
-    println!(
-        "Tacho {}: avg: {:.2}ms / 95% conf. interval {:.2} / min: {}ms / max: {}ms / stddev {:.2} ms / n_recommended {:.0}",
-        tacho_options.tag, avg, conf_interval_95, min, max, stddev, n_recommended
-    );
+        println!(
+            "Tacho {}: avg: {:.2}ms / 95% conf. interval {:.2} / min: {}ms / max: {}ms / stddev {:.2} ms / n_recommended {:.0}",
+            tacho_options.tag, avg, conf_interval_95, min, max, stddev, n_recommended
+        );
+    }
 }

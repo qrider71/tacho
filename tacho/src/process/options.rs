@@ -1,3 +1,5 @@
+static DEFAULT_REG_EX: &str = r"\[(\-?\d+\.?\d*)\s?(s|ms|ns)\]";
+
 pub struct TachoOptions {
     pub tag: String,
     pub show_output: bool,
@@ -12,6 +14,14 @@ fn get_value_as_string(x: &str) -> Option<String> {
     match tokens.as_slice() {
         [_key, value] => Some((*value).to_string()),
         _ => None,
+    }
+}
+
+fn get_value_as_string_or_default(x: &str, default: &str) -> Option<String> {
+    let tokens: Vec<_> = x.split('=').filter(|k| !k.is_empty()).collect();
+    match tokens.as_slice() {
+        [_key, value] => Some((*value).to_string()),
+        _ => Some(default.to_string()),
     }
 }
 
@@ -55,7 +65,8 @@ fn get_tacho_options(args: &[&str]) -> TachoOptions {
             .map(|_n| true)
             .unwrap_or(false),
 
-        regex_opt: find_in_args(&args, "-tachoRegEx").and_then(|n| get_value_as_string(args[n])),
+        regex_opt: find_in_args(&args, "-tachoRegEx")
+            .and_then(|n| get_value_as_string_or_default(args[n], DEFAULT_REG_EX)),
     }
 }
 
