@@ -134,7 +134,7 @@ fn process_result_list(results: Vec<TachoResult>, tacho_options: &TachoOptions) 
             for d in &res.duration {
                 print!("{:.2} \t", d);
             }
-            println!("");
+            println!();
         }
     }
 
