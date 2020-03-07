@@ -36,12 +36,12 @@ the execution of the algorithms with execution time logging and write the measur
 
 Example (Java):
 
-        ```Java
-                long startTime = System.currentTimeMillis();
-                runMyAlgorithm();
-                long duration = System.currentTimeMillis() - startTime;
-                System.out.printf("Duration MyAlgorithm [%d ms]", duration);
-        ```
+```Java
+long startTime = System.currentTimeMillis();
+runMyAlgorithm();
+long duration = System.currentTimeMillis() - startTime;
+System.out.printf("Duration MyAlgorithm [%d ms]", duration);
+```
 
 The excutable should produce the following output:
 
