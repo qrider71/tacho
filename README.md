@@ -52,8 +52,12 @@ If the multiple algorithms shall be measured just add the output accordingly, i.
         Algo1 [321 ms] ... some other output ... Algo2 [456 ms]
 
 PerfTacho parses the output of the executable and caputures the performance data with a regular
-expression. With the current default regular expression "\[(\-?\d+[\.,]?\d*)\s?(s|ms|ns)\]"
+expression. With the current default regular expression 
+
+        "\[(\-?\d+[\.,]?\d*)\s?(s|ms|ns)\]"
+
 it matches the following output examples:
+
         [123.0 ms] [123.0ms] [123 s] [123,45 s] [12345ns]
 
 The follwing command runs the executable in multiple passes and computes statistics from the recorded
