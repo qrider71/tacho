@@ -1,5 +1,8 @@
-#!/bin/bash
+#!/bin/zsh
 
-echo just a test [900000ns] test [999.123ss] test2 [10,123 ms] 123s!
-echo test2 [0,123 s] 123s!
+echo "This is some test Output[${(l:0::0:)$((100+${RANDOM}%20+1))}ms] and should match"
+echo "[${(l:0::0:)$((100000+${RANDOM}%20+1))},00ns] this should match as well"
+echo "This should not match [${(l:0::0:)$((100+${RANDOM}%20+1))} xs] because of the xs"
+echo "[${(l:0::0:)$((100+${RANDOM}%20+1))}.0 ms] this should match"
 sleep 1
+

@@ -16,7 +16,7 @@ pub fn display_help() -> Result<(), String> {
          -tachoRegEx[=<re>]     capture durations from output (see documentation)
 
         Example: 
-            perftacho -tachoTag=MyTest -tachoRepeat=5 -tachoShowDetail curl https://www.google.com 
+            perftacho -tachoTag=MyTest -tachoRepeat=5 -tachoShowDetail curl http://www.google.com 
             perftacho -tachoShowOutput ls -l
 
         Further information: https://github.com/qrider71/tacho

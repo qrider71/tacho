@@ -2,9 +2,11 @@
 
 # PerfTacho
 
-PerfTacho is a small application for measuring performance of an executable
+PerfTacho is a small application for computing performance statistics of an executable.
 
-PerfTacho executes a command and measures the elapsed time in milliseconds.
+The executable can be any binary file or a shell script. PerfTacho measures the total execution
+time and can also capture execution time output from the executable. PerfTacho can run the executable
+multiple times and compute statistics from the recorded performance data.
 
 # Usage
 
@@ -22,6 +24,53 @@ PerfTacho executes a command and measures the elapsed time in milliseconds.
 
          perftacho -tachoTag=MyTest -tachoRepeat=5 -tachoShowDetail curl https://www.google.com 
          perftacho -tachoShowOutput ls -l
+
+# Typical use cases
+
+## Evaluating performance of an executable and its algorithms
+
+A software developer wants to evaluate the performance of an executable which comprises of several algorithms.
+Typcally, the developer wants to measure the total execution time and the individual execution time for the
+algorithms to track where the elapsed time is spent. For this purpose the developer just needs to surround
+the execution of the algorithms with execution time logging and write the measured execution time to stdout.
+
+Example (Java):
+                        long startTime = System.currentTimeMillis();
+                        runMyAlgorithm();
+                        long duration = System.currentTimeMillis() - startTime;
+                        System.out.printf("Duration MyAlgorithm [%d ms]", duration);
+
+The excutable should produce the following output:
+
+        Duration MyAlgorithm [321 ms]
+
+If the multiple algorithms shall be measured just add the output accordingly, i.e:
+
+        Algo1 [321 ms] ... some other output ... Algo2 [456 ms]
+
+PerfTacho parses the output of the executable and caputures the performance data with a regular
+expression. With the current default regular expression "\[(\-?\d+[\.,]?\d*)\s?(s|ms|ns)\]"
+it matches the following output examples:
+        [123.0 ms] [123.0ms] [123 s] [123,45 s] [12345ns]
+
+The follwing command runs the executable in multiple passes and computes statistics from the recorded
+performance data:
+
+        perftacho -tachoRepeat=5 -tachoShowDetails -tachoRegEx  MyProgram
+
+The output might look like this:
+
+        Tacho : duration in ms
+        1008.00         110.00  100.00  113.00 
+        1014.00         108.00  100.00  120.00 
+        1014.00         101.00  100.00  110.00 
+        1014.00         120.00  100.00  108.00 
+        1010.00         101.00  100.00  116.00 
+        Tacho : avg: 1012.00ms / 95% conf. interval 2.48 / min: 1008ms / max: 1014ms / stddev 2.83 ms / n_recommended 0
+        Tacho : avg: 108.00ms / 95% conf. interval 6.87 / min: 101ms / max: 120ms / stddev 7.84 ms / n_recommended 8
+        Tacho : avg: 100.00ms / 95% conf. interval 0.00 / min: 100.001ms / max: 100.005ms / stddev 0.00 ms / n_recommended 0
+        Tacho : avg: 113.40ms / 95% conf. interval 4.19 / min: 108ms / max: 120ms / stddev 4.77 ms / n_recommended 3
+
 
 # Installation
 
