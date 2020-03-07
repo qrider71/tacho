@@ -78,7 +78,7 @@ The output might look like this:
         Tacho : avg: 100.01ms / 95% conf. interval 0.00 / min: 100.009ms / max: 100.018ms / stddev 0.00 ms / n_recommended 1
         Tacho : avg: 109.80ms / 95% conf. interval 6.02 / min: 103ms / max: 119ms / stddev 6.87 ms / n_recommended 6
 
-In this example the executable "MyProgramm" was run 5 times. PerTacho captured 3 performance data items
+In this example the executable "MyProgramm" was run 5 times. PerfTacho captured 3 performance data items
 from the output. From this data the table as shown above is generated (and displayed because of the -tachoShowDetails command line option).
 
 The first column shows the total execution time, the last 3 columns show
