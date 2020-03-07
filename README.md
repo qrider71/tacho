@@ -61,16 +61,19 @@ performance data:
 The output might look like this:
 
         Tacho : duration in ms
-        1008.00         110.00  100.00  113.00 
-        1014.00         108.00  100.00  120.00 
-        1014.00         101.00  100.00  110.00 
-        1014.00         120.00  100.00  108.00 
-        1010.00         101.00  100.00  116.00 
-        Tacho : avg: 1012.00ms / 95% conf. interval 2.48 / min: 1008ms / max: 1014ms / stddev 2.83 ms / n_recommended 0
-        Tacho : avg: 108.00ms / 95% conf. interval 6.87 / min: 101ms / max: 120ms / stddev 7.84 ms / n_recommended 8
-        Tacho : avg: 100.00ms / 95% conf. interval 0.00 / min: 100.001ms / max: 100.005ms / stddev 0.00 ms / n_recommended 0
-        Tacho : avg: 113.40ms / 95% conf. interval 4.19 / min: 108ms / max: 120ms / stddev 4.77 ms / n_recommended 3
+        1012.00         102.00  100.02  119.00 
+        1014.00         116.00  100.01  107.00 
+        1014.00         114.00  100.02  115.00 
+        1013.00         105.00  100.01  103.00 
+        1014.00         112.00  100.02  105.00 
+        Tacho : avg: 1013.40ms / 95% conf. interval 0.78 / min: 1012ms / max: 1014ms / stddev 0.89 ms / n_recommended 1
+        Tacho : avg: 109.80ms / 95% conf. interval 5.27 / min: 102ms / max: 116ms / stddev 6.02 ms / n_recommended 5
+        Tacho : avg: 100.01ms / 95% conf. interval 0.00 / min: 100.009ms / max: 100.018ms / stddev 0.00 ms / n_recommended 1
+        Tacho : avg: 109.80ms / 95% conf. interval 6.02 / min: 103ms / max: 119ms / stddev 6.87 ms / n_recommended 6
 
+In this example the executable "MyProgramm" was run 5 times. The executable wrote 3 performance data
+items to the standard output. The first column shows the total execution time, the last 3 colums show
+the captured execution time data from the output. All data is transformed to milliseconds.
 
 # Installation
 
