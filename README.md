@@ -36,7 +36,7 @@ the execution of the algorithms with execution time logging and write the measur
 
 Example (Java):
 
-        ```java
+        ```Java
         long startTime = System.currentTimeMillis();
         runMyAlgorithm();
         long duration = System.currentTimeMillis() - startTime;
