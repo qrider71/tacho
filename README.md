@@ -35,10 +35,12 @@ algorithms to track where the elapsed time is spent. For this purpose the develo
 the execution of the algorithms with execution time logging and write the measured execution time to stdout.
 
 Example (Java):
-                        long startTime = System.currentTimeMillis();
-                        runMyAlgorithm();
-                        long duration = System.currentTimeMillis() - startTime;
-                        System.out.printf("Duration MyAlgorithm [%d ms]", duration);
+        ```Java
+        long startTime = System.currentTimeMillis();
+        runMyAlgorithm();
+        long duration = System.currentTimeMillis() - startTime;
+        System.out.printf("Duration MyAlgorithm [%d ms]", duration);
+        ```
 
 The excutable should produce the following output:
 
