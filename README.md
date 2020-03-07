@@ -25,6 +25,8 @@ multiple times and compute statistics from the recorded performance data.
          perftacho -tachoTag=MyTest -tachoRepeat=5 -tachoShowDetail curl https://www.google.com 
          perftacho -tachoShowOutput ls -l
 
+# Statistics
+
 # Typical use cases
 
 ## Evaluating performance of an executable and its algorithms
@@ -78,11 +80,11 @@ The output might look like this:
         Tacho : avg: 100.01ms / 95% conf. interval 0.00 / min: 100.009ms / max: 100.018ms / stddev 0.00 ms / n_recommended 1
         Tacho : avg: 109.80ms / 95% conf. interval 6.02 / min: 103ms / max: 119ms / stddev 6.87 ms / n_recommended 6
 
-In this example the executable "MyProgramm" was run 5 times. PerfTacho captured 3 performance data items
-from the output. From this data the table as shown above is generated (and displayed because of the -tachoShowDetails command line option).
+In this example the executable "MyProgramm" was run 5 times (-tachoRepeat=5 option). PerfTacho captured 3 performance data items from the output. From this data the table as shown above is generated (and displayed, -tachoShowDetails option).
 
 The first column shows the total execution time, the last 3 columns show
 the captured execution time data from the output. All data is transformed to milliseconds.
+For each column a row with statistics is computed and displayed below the table.
 
 # Installation
 
