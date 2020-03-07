@@ -1,4 +1,4 @@
-[![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/qrider71/tacho) 
+[![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/qrider71/tacho)
 
 # PerfTacho
 
@@ -22,7 +22,7 @@ multiple times and compute statistics from the recorded performance data.
 
 ## Example
 
-         perftacho -tachoTag=MyTest -tachoRepeat=5 -tachoShowDetail curl https://www.google.com 
+         perftacho -tachoTag=MyTest -tachoRepeat=5 -tachoShowDetail curl https://www.google.com
          perftacho -tachoShowOutput ls -l
 
 # Statistics
@@ -45,7 +45,7 @@ long duration = System.currentTimeMillis() - startTime;
 System.out.printf("Duration MyAlgorithm [%d ms]", duration);
 ```
 
-The excutable should produce the following output:
+The executable should produce the following output:
 
         Duration MyAlgorithm [321 ms]
 
@@ -54,7 +54,7 @@ If the multiple algorithms shall be measured just add the output accordingly, i.
         Algo1 [321 ms] ... some other output ... Algo2 [456 ms]
 
 PerfTacho parses the output of the executable and caputures the performance data with a regular
-expression. With the current default regular expression 
+expression. With the current default regular expression
 
         "\[(\-?\d+[\.,]?\d*)\s?(s|ms|ns)\]"
 
@@ -70,11 +70,11 @@ performance data:
 The output might look like this:
 
         Tacho : duration in ms
-        1012.00         102.00  100.02  119.00 
-        1014.00         116.00  100.01  107.00 
-        1014.00         114.00  100.02  115.00 
-        1013.00         105.00  100.01  103.00 
-        1014.00         112.00  100.02  105.00 
+        1012.00         102.00  100.02  119.00
+        1014.00         116.00  100.01  107.00
+        1014.00         114.00  100.02  115.00
+        1013.00         105.00  100.01  103.00
+        1014.00         112.00  100.02  105.00
         Tacho : avg: 1013.40ms / 95% conf. interval 0.78 / min: 1012ms / max: 1014ms / stddev 0.89 ms / n_recommended 1
         Tacho : avg: 109.80ms / 95% conf. interval 5.27 / min: 102ms / max: 116ms / stddev 6.02 ms / n_recommended 5
         Tacho : avg: 100.01ms / 95% conf. interval 0.00 / min: 100.009ms / max: 100.018ms / stddev 0.00 ms / n_recommended 1
