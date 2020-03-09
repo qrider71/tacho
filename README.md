@@ -25,7 +25,26 @@ multiple times and compute statistics from the recorded performance data.
          perftacho -tachoTag=MyTest -tachoRepeat=5 -tachoShowDetail curl https://www.google.com
          perftacho -tachoShowOutput ls -l
 
-# Statistics
+# Calculated Statistics
+
+When using PerfTacho in repeated execution mode (-tachoRepeat=<n>) the following statistics are
+calculated:
+        avg                     the arithmetic average of the execution time
+        95% conf. interval      the interval [avg-d, avg+d] for which there is a 95% probabilty
+                                that the true avg is contained in
+        min                     minimum execution time
+        max                     maximum execution time
+        std_dev                 the standard deviation of the execution time
+        n_recommended           the recommended number of repetitions to get a confidence intervall
+                                smaller than 5% of the avg value, i.e. [5%-avg, avg+5%]
+
+Some mathematical background: The goal is to calculate the "true" average execution time.
+What is the true average execution time and why "true"? Just try out the follwing with a sample
+executable: Run perftacho with lets say 5 repetitions (-tachoRepeat=5). It will calculate the
+average execution time for this sample of 5 executions. Now do it again an again. You will see
+that the calculated average execution time is more or less similar for each experiment but not exactly
+the same. The calculated statistics for a given sample of executions is just an estimation for the
+"true" values. 
 
 # Typical use cases
 
