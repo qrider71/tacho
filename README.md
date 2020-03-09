@@ -30,17 +30,17 @@ multiple times and compute statistics from the recorded performance data.
 When using PerfTacho in repeated execution mode (-tachoRepeat=<n>) the following statistics are
 calculated:
 
-- avg:                     the arithmetic average of the execution time
+- avg:                          the arithmetic average of the execution time
 
-- 95% conf. interval:      the interval [avg-d, avg+d] for which there is a 95% probabilty that the true avg is contained in
+- 95% conf. interval:           the interval [avg-d, avg+d] for which there is a 95% probabilty that the true avg is contained in
         
-- min:                     minimum execution time
+- min:                          minimum execution time
 
-- max:                     maximum execution time
+- max:                          maximum execution time
 
-- std_dev:                 the standard deviation of the execution time
+- std_dev:                      the standard deviation of the execution time
 
-- n_recommended:           the recommended number of repetitions to get a confidence intervall smaller than 5% of the avg value, i.e. [5%-avg, avg+5%]
+- n_recommended:                the recommended number of repetitions to get a confidence intervall smaller than 5% of the avg value, i.e. [5%-avg, avg+5%]
 
 Some mathematical background: The goal is to calculate the "true" average execution time.
 What is the true average execution time and why "true"? Just try out the follwing with a sample
