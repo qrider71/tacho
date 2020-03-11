@@ -27,7 +27,7 @@ multiple times and compute statistics from the recorded performance data.
 
 # Calculated Statistics
 
-When using PerfTacho in repeated execution mode (-tachoRepeat=<n>) the following statistics are
+When using PerfTacho in repeated execution mode (-tachoRepeat=n) the following statistics are
 calculated:
 
         - avg:                  the arithmetic average of the execution time
@@ -51,8 +51,13 @@ average execution time for this sample of 5 executions. Now do it again an again
 that the calculated average execution time is more or less similar for each experiment but not exactly
 the same. The calculated statistics for a given sample of executions is just an estimation for the
 "true" values. The variation of the calculated average value depends on the variation of the individual
-measurements. Their variation is expressed through the standard deviation srd_dev. A small standard deviation
+measurements. Their variation is expressed through the standard deviation std_dev. A small standard deviation
 means you only need few measurements to calculate a reasonable approximation for the average execution time.
+Vice versa, a high value means you need a higher number of measurements.
+The 95% confidence interval expresses a range for which you can be 95% confident that the "true" average execution
+time value is contained. If you have a strong variation in measured data the range will be quide broad. To narrow
+down this range you need to increase the number of measurements (-tachoRepeat). n_recommended estimates the
+number of measurements you probably will need to get a confidence intervall of +/- 5% around the average value.
 
 Consult https://en.wikipedia.org/wiki/Confidence_interval to get some more information
 
@@ -64,10 +69,6 @@ A software developer wants to evaluate the performance of an executable which co
 Typcally, the developer wants to measure the total execution time and the individual execution time for the
 algorithms to track where the elapsed time is spent. For this purpose the developer just needs to surround
 the execution of the algorithms with execution time logging and write the measured execution time to stdout.
-The 95% confidence interval expresses a range for which you can be 95% confident that the "true" average execution
-time value is contained. If you have a strong variation in measured data the range will be quide broad. To narrow
-down this range you need to increase the number of measurements (-tachoRepeat). n_recommended estimates the
-number of measurements you probably will need to get a confidence intervall of +/- 5% around the average value.
 
 Example (Java):
 
