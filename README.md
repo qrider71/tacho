@@ -32,7 +32,7 @@ calculated:
 
         - avg:                  the arithmetic average of the execution time
 
-        - 95% conf. interval:   the interval [avg-d, avg+d] for which there is a 95% probabilty that 
+        - 95% conf. interval:   the interval [avg-d, avg+d] for which there is a 95% probability that 
                                 the true avg is contained in
         
         - min:                  minimum execution time
@@ -41,7 +41,7 @@ calculated:
 
         - std_dev:              the standard deviation of the execution time
 
-        - n_recommended:        the recommended number of repetitions to get a confidence intervall 
+        - n_recommended:        the recommended number of repetitions to get a confidence interval 
                                 smaller than 5% of the avg value, i.e. [5%-avg, avg+5%]
 
 Some mathematical background: The goal is to calculate the "true" average execution time.
@@ -55,9 +55,9 @@ measurements. Their variation is expressed through the standard deviation std_de
 means you only need few measurements to calculate a reasonable approximation for the average execution time.
 Vice versa, a high value means you need a higher number of measurements.
 The 95% confidence interval expresses a range for which you can be 95% confident that the "true" average execution
-time value is contained. If you have a strong variation in measured data the range will be quide broad. To narrow
+time value is contained. If you have a strong variation in measured data the range will be quite broad. To narrow
 down this range you need to increase the number of measurements (-tachoRepeat). n_recommended estimates the
-number of measurements you probably will need to get a confidence intervall of +/- 5% around the average value.
+number of measurements you probably will need to get a confidence interval of +/- 5% around the average value.
 
 Consult https://en.wikipedia.org/wiki/Confidence_interval to get some more information
 
@@ -66,7 +66,7 @@ Consult https://en.wikipedia.org/wiki/Confidence_interval to get some more infor
 ## Evaluating performance of an executable and its algorithms
 
 A software developer wants to evaluate the performance of an executable which comprises of several algorithms.
-Typcally, the developer wants to measure the total execution time and the individual execution time for the
+Typically, the developer wants to measure the total execution time and the individual execution time for the
 algorithms to track where the elapsed time is spent. For this purpose the developer just needs to surround
 the execution of the algorithms with execution time logging and write the measured execution time to stdout.
 
@@ -87,7 +87,7 @@ If the multiple algorithms shall be measured just add the output accordingly, i.
 
         Algo1 [321 ms] ... some other output ... Algo2 [456 ms]
 
-PerfTacho parses the output of the executable and caputures the performance data with a regular
+PerfTacho parses the output of the executable and captures the performance data with a regular
 expression. With the current default regular expression
 
         "\[(\-?\d+[\.,]?\d*)\s?(s|ms|ns)\]"
@@ -96,7 +96,7 @@ it matches the following output examples:
 
         [123.0 ms] [123.0ms] [123 s] [123,45 s] [12345ns]
 
-The follwing command runs the executable in multiple passes and computes statistics from the recorded
+The following command runs the executable in multiple passes and computes statistics from the recorded
 performance data:
 
         perftacho -tachoRepeat=5 -tachoShowDetails -tachoRegEx  MyProgram
@@ -182,23 +182,23 @@ I plan the following roadmap. Please contact me if you have any comments or idea
 
 ## V.1.0
 
-Version 1.0 provides all command line tool features for measurung the performance of a single executable
+Version 1.0 provides all command line tool features for measuring the performance of a single executable
 
 - Simple measurement of the runtime duration (implemented)
 - Statistical analysis of multiple runs (implemented)
-- Grabbing perfromance data from the output of the executable with regular expressions (implemented)
+- Grabbing performance data from the output of the executable with regular expressions (implemented)
 
 ## V.2.0
 
-Version 2.0 provides features for comparing the performance of several execurtables. It can be used for benchmarking
-different implementation. The execution plans can be specifyed in a configuration file.
+Version 2.0 provides features for comparing the performance of several executable. It can be used for benchmarking
+different implementation. The execution plans can be specified in a configuration file.
 
-- Configuration file (yaml) based performance testing plans for several executables
+- Configuration file (yaml) based performance testing plans for several executable
 - Exporting the results in different formats
 
 ## V.3.0
 
-Version 3.0 provides multi-threading options for running the perfromance tests. The focus is on measuring
+Version 3.0 provides multi-threading options for running the performance tests. The focus is on measuring
 the performance under multi-threaded access and stress test conditions
 
 - multi-threading options for running the performance tests
