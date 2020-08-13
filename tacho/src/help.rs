@@ -8,7 +8,8 @@ pub fn display_help() -> Result<(), String> {
         perftacho [-tachoOptions] <command> [params]
 
         Available options:
-         -tachoRepeat=<n>       repeats the execution n times and calculates statistics
+         -tachoThreads=<n>      launches n parallel threads
+         -tachoRepeat=<n>       repeats the execution n times per thread and calculates statistics
          -tachoShowDetails      together  with -tachoRepeat: show each individual duration
          -tachoShowOutput       displays the output of the executed command
          -tachoASCII            together with -tachoShowOutput: filter out non ASCII characters in output

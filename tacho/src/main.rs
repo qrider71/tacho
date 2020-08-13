@@ -19,7 +19,7 @@ fn main() {
         ["help"] => help::display_help(),
         ["-tachoFile", file] => process_tacho_file(file),
         ["-tachoFile"] => process_tacho_file(DEFAULT_TACHO_FILE),
-        _ => process::run_command(args_str),
+        _ => process::run_command(args_str.clone()),
     };
 
     if let Err(message) = res {

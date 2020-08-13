@@ -1,9 +1,11 @@
 static DEFAULT_REG_EX: &str = r"\[(\-?\d+[\.,]?\d*)\s?(s|ms|ns)\]";
 
+#[derive(Clone, Debug)]
 pub struct TachoOptions {
     pub tag: String,
     pub show_output: bool,
     pub filter_ascii: bool,
+    pub threads: i32,
     pub repeat: i32,
     pub show_details: bool,
     pub regex_opt: Option<String>,
@@ -49,6 +51,10 @@ fn get_tacho_options(args: &[&str]) -> TachoOptions {
             .and_then(|n| get_value_as_string(args[n]))
             .unwrap_or_else(|| "".to_string()),
 
+        threads: find_in_args(&args, "-tachoThreads")
+            .and_then(|n| get_value_as_int(args[n]))
+            .unwrap_or(1),
+
         repeat: find_in_args(&args, "-tachoRepeat")
             .and_then(|n| get_value_as_int(args[n]))
             .unwrap_or(1),
@@ -70,13 +76,14 @@ fn get_tacho_options(args: &[&str]) -> TachoOptions {
     }
 }
 
-fn get_non_tacho_options(args: Vec<&str>) -> Vec<&str> {
+fn get_non_tacho_options(args: Vec<&str>) -> Vec<String> {
     args.into_iter()
         .filter(|s| !s.starts_with("-tacho"))
+        .map(String::from)
         .collect()
 }
 
-pub fn get_command_line(args: Vec<&str>) -> Result<(&str, Vec<&str>, TachoOptions), String> {
+pub fn get_command_line(args: Vec<&str>) -> Result<(String, Vec<String>, TachoOptions), String> {
     let tacho_options = get_tacho_options(&args);
     let cmd_with_params = get_non_tacho_options(args);
 
@@ -84,8 +91,8 @@ pub fn get_command_line(args: Vec<&str>) -> Result<(&str, Vec<&str>, TachoOption
         return Err(String::from("Missing command"));
     }
 
-    let cmd = cmd_with_params[0];
-    let params: Vec<&str> = cmd_with_params.into_iter().skip(1).collect();
+    let cmd = String::from(""); // cmd_with_params.get(0).unwrap();
+    let params: Vec<String> = cmd_with_params.into_iter().skip(1).collect();
 
     Ok((cmd, params, tacho_options))
 }
